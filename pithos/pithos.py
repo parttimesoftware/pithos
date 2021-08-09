@@ -60,6 +60,8 @@ except AttributeError:
     RESAMPLER_QUALITY_MAX = 10
     RESAMPLER_FILTER_MODE_FULL = 1
 
+BUFFER_MULTIPLIER = 375
+
 ALBUM_ART_SIZE = 96
 TEXT_X_PADDING = 12
 
@@ -753,7 +755,7 @@ class PithosWindow(Gtk.ApplicationWindow):
         os.environ['PULSE_PROP_media.artist'] = song.artist
         os.environ['PULSE_PROP_media.name'] = '{}: {}'.format(song.artist, song.title)
         os.environ['PULSE_PROP_media.filename'] = audioUrl
-        self.player.set_property('buffer-size', int(song.bitrate) * 375)
+        self.player.set_property('buffer-size', int(song.bitrate) * BUFFER_MULTIPLIER)
         self.player.set_property('connection-speed', int(song.bitrate))
         self.player.set_property("uri", audioUrl)
         self._set_player_state(PseudoGst.BUFFERING)
